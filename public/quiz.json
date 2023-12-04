@@ -1,0 +1,107 @@
+[
+    {
+        "domanda": "Qual è la capitale dell'Italia?",
+        "opzioni": ["Madrid", "Parigi", "Roma", "Londra"],
+        "rispostaCorretta": "Roma"
+    },
+    {
+        "domanda": "Quale elemento chimico ha il simbolo 'O'?",
+        "opzioni": ["Oro", "Ossigeno", "Azoto", "Idrogeno"],
+        "rispostaCorretta": "Ossigeno"
+    },
+    {
+        "domanda": "Chi è l'autore di 'Romeo e Giulietta'?",
+        "opzioni": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Agatha Christie"],
+        "rispostaCorretta": "William Shakespeare"
+    },
+    {
+        "domanda": "Quanto è lungo il perimetro di un quadrato con lato di lunghezza 5?",
+        "opzioni": ["15", "20", "25", "10"],
+        "rispostaCorretta": "20"
+    },
+    {
+        "domanda": "Qual è il più grande oceano del mondo?",
+        "opzioni": ["Oceano Atlantico", "Oceano Indiano", "Oceano Pacifico", "Oceano Antartico"],
+        "rispostaCorretta": "Oceano Pacifico"
+    },
+    {
+        "domanda": "Quale pianeta è conosciuto come 'la stella del mattino' o 'la stella della sera'?",
+        "opzioni": ["Marte", "Venere", "Giove", "Saturno"],
+        "rispostaCorretta": "Venere"
+    },
+    {
+        "domanda": "In quale anno è stata fondata la Microsoft?",
+        "opzioni": ["1975", "1985", "1995", "2005"],
+        "rispostaCorretta": "1975"
+    },
+    {
+        "domanda": "Qual è la più alta montagna del mondo?",
+        "opzioni": ["Monte Everest", "Monte Kilimanjaro", "Monte McKinley", "Monte Rosa"],
+        "rispostaCorretta": "Monte Everest"
+    },
+    {
+        "domanda": "Chi ha dipinto 'La Gioconda'?",
+        "opzioni": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+        "rispostaCorretta": "Leonardo da Vinci"
+    },
+    {
+        "domanda": "Quale lingua è parlata in Brasile?",
+        "opzioni": ["Spagnolo", "Portoghese", "Francese", "Inglese"],
+        "rispostaCorretta": "Portoghese"
+    },
+    {
+        "domanda": "Quale è l'elemento chimico con il simbolo 'Fe'?",
+        "opzioni": ["Ferro", "Fosforo", "Fluoro", "Francio"],
+        "rispostaCorretta": "Ferro"
+    },
+    {
+        "domanda": "Chi ha scritto 'Il Conte di Montecristo'?",
+        "opzioni": ["Victor Hugo", "Alexandre Dumas", "Gustave Flaubert", "Honore de Balzac"],
+        "rispostaCorretta": "Alexandre Dumas"
+    },
+    {
+        "domanda": "Quanto è la radice quadrata di 144?",
+        "opzioni": ["10", "12", "14", "16"],
+        "rispostaCorretta": "12"
+    },
+    {
+        "domanda": "Qual è la velocità della luce in vuoto?",
+        "opzioni": ["300,000 km/s", "500,000 km/s", "700,000 km/s", "900,000 km/s"],
+        "rispostaCorretta": "300,000 km/s"
+    },
+    {
+        "domanda": "In quale anno è stata fondata l'UNESCO?",
+        "opzioni": ["1945", "1955", "1965", "1975"],
+        "rispostaCorretta": "1945"
+    },
+    {
+        "domanda": "Chi è l'autore della teoria dell'evoluzione per selezione naturale?",
+        "opzioni": ["Charles Darwin", "Gregor Mendel", "Alfred Russel Wallace", "Jean-Baptiste Lamarck"],
+        "rispostaCorretta": "Charles Darwin"
+    },
+    {
+        "domanda": "Quale pianeta del sistema solare ha il giorno più lungo?",
+        "opzioni": ["Giove", "Saturno", "Marte", "Venere"],
+        "rispostaCorretta": "Venere"
+    },
+    {
+        "domanda": "Qual è l'anno della Rivoluzione Russa?",
+        "opzioni": ["1905", "1917", "1923", "1931"],
+        "rispostaCorretta": "1917"
+    },
+    {
+        "domanda": "Chi ha scritto '1984'?",
+        "opzioni": ["Aldous Huxley", "George Orwell", "Ray Bradbury", "Margaret Atwood"],
+        "rispostaCorretta": "George Orwell"
+    },
+    {
+        "domanda": "Quale è il fiume più lungo del mondo?",
+        "opzioni": ["Rio delle Amazzoni", "Nilo", "Mississippi", "Gange"],
+        "rispostaCorretta": "Nilo"
+    },
+    {
+        "domanda": "Qual è la lingua ufficiale del Sudafrica?",
+        "opzioni": ["Inglese", "Afrikaans", "Zulu", "Xhosa"],
+        "rispostaCorretta": "Inglese"
+    }
+]
