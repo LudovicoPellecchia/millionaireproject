@@ -11,7 +11,8 @@ export default {
             selectedOption: null,
             hoveredOption: null,
             fadeAnimationActive: false,
-            hoverMouseLeave: false
+            hoverMouseLeave: false,
+            hoverMouseOver: false
         }
     },
 
@@ -39,13 +40,17 @@ export default {
         },
 
         leaveHoverAnimation(option) {
-            this.hoveredOption = option
+            this.hoveredOption = option 
             this.hoverMouseLeave = true
+            this.hoverMouseOver = false
+        },
 
-/*             setTimeout(() => {
-                this.hoverMouseLeave = true
-            }, 500); // Imposta la durata dell'animazione in millisecondi
- */
+        startHoverAnimation(option){
+            this.hoveredOption = option 
+            this.hoverMouseOver = true
+            this.hoverMouseLeave = false
+
+
         }
 
     }
@@ -57,11 +62,12 @@ export default {
     <div class="container my-style-container">
         <div class="row row-cols-2 gy-3">
             <div class="col d-flex justify-content-center" v-for="opzione in quiz?.opzioni" :key="opzione">
-                <div class="item" @mouseleave="leaveHoverAnimation(opzione)" @click="selectOption(opzione)" :class="{
+                <div class="item" @mouseleave="leaveHoverAnimation(opzione)" @mouseover="startHoverAnimation(opzione)" @click="selectOption(opzione)" :class="{
                     'correct-answer': selectedOption === opzione,
                     'fade-animation': selectedOption !== opzione && fadeAnimationActive,
                     'no-hover': fadeAnimationActive,
-                    'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave
+                    'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave &&!hoverMouseOver,
+                    'start-mouse-hover': hoveredOption === opzione && hoverMouseOver &&!hoverMouseLeave,
                 }">
                     {{ opzione }}
                 </div>
@@ -82,14 +88,14 @@ export default {
     cursor: pointer;
     padding: 10px 14px;
     box-shadow: 10px 10px #311847;
-    transition: transform 0.5s;
-
+/*     transition: transform 0.5s;
+ */
 
 
 
     &:hover {
-        transform: scale(1.06);
-        animation: tilt-shaking 0.4s infinite 0.5s ease-in-out;
+/*         transform: scale(1.06);
+ */        animation: tilt-shaking 0.4s infinite 0.4s ease-in-out;
 
         @keyframes tilt-shaking {
             0% {
@@ -119,8 +125,29 @@ export default {
     pointer-events: none;
 }
 
+.start-mouse-hover {
+    transition: transform 0.4s;
+    transform: scale(1.06);
+
+
+/*     animation: scaling-up 0.2s ease;
+
+    @keyframes scaling-up {
+        from {
+            transform: scale(1);
+        }
+
+        to {
+            transform: scale(1.06);
+        }
+    } */
+
+    
+}
+
+
 .leave-mouse-hover {
-    animation: scaling-out 0.5s ease;
+    animation: scaling-out 0.4s ease;
 
     @keyframes scaling-out {
         from {
