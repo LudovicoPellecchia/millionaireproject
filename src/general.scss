@@ -1,1 +1,9 @@
-@import 'bootstrap'
+@import 'bootstrap';
+
+
+body{
+    height: 100vh;
+    padding-top: 150px;
+    background-image: url('./assets/blob-scene-haikei.svg');
+    background-size: cover;
+}

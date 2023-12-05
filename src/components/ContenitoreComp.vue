@@ -3,12 +3,14 @@ import axios from 'axios';
 import DomandaComp from './DomandaComp.vue';
 import RisposteComp from './RisposteComp.vue';
 import RestartBtn from './RestartBtn.vue';
+import ProgressBar from './ProgressBar.vue'
 
 export default {
   components: {
     DomandaComp,
     RisposteComp,
-    RestartBtn
+    RestartBtn,
+    ProgressBar
   },
 
   data() {
@@ -16,7 +18,9 @@ export default {
       quiz: [],
       usedQuestions: [],
       questionIndex: null,
-      finishedQuiz: false
+      finishedQuiz: false,
+      progress: 0,
+      failedQuiz: false
     }
   },
 
@@ -26,7 +30,10 @@ export default {
       axios.get('quiz.json').then((response) => {
 
         this.quiz = response.data;
+
+
       })
+
     },
 
     fetchRandomQuestion() {
@@ -35,7 +42,8 @@ export default {
       } while (this.usedQuestions.includes(this.questionIndex));
 
       this.usedQuestions.push(this.questionIndex);
-      console.log(this.usedQuestions);
+      console.log(this.usedQuestions)
+
 
       return this.questionIndex;
     },
@@ -45,27 +53,47 @@ export default {
     async fetchNextQuestion(selectedOption) {
       const correctAnswer = this.quiz[this.questionIndex].rispostaCorretta;
 
-      if (selectedOption === correctAnswer) {
-        // Opzione selezionata corretta, incrementa questionIndex
+      const handleCorrectAnswer = async () => {
+        this.failedQuiz = false;
+        // Opzione selezionata corretta, trova un random questionIndex
         this.fetchRandomQuestion();
-
-        // Verifica se ci sono altre domande nel quiz
-        if (this.usedQuestions.length < 1) {
+        // Dopo ogni domanda risposta correttamente
+        this.progress += 0.1;
+        // Verifica se il quiz ha raggiunto il termine
+        if (this.usedQuestions.length < 11) {
           await this.fetchQuiz(); // Effettua la chiamata axios solo dopo aver incrementato questionIndex
           // Puoi anche aggiungere ulteriori azioni o logiche necessarie qui
         } else {
-          // Se hai finito tutte le domande, puoi gestire la logica di fine quiz qui
-          this.finishedQuiz = true
+          // Se hai finito il quiz
+          this.finishedQuiz = true;
         }
-      } else {
+      };
+
+      const handleWrongAnswer = () => {
         // Opzione selezionata errata, puoi gestire la logica degli errori qui se necessario
+        this.progress = 0;
+        this.usedQuestions = [];
+        this.questionIndex = this.fetchRandomQuestion();
+        this.failedQuiz = true;
         console.log('Risposta errata, puoi gestire gli errori qui.');
-      }
+      };
+
+      // Ritarda l'esecuzione della funzione di 1 secondo
+      setTimeout(() => {
+        if (selectedOption === correctAnswer) {
+          handleCorrectAnswer();
+        } else {
+          handleWrongAnswer();
+        }
+      }, 1000);
     },
 
 
+
     restartQuiz() {
-      this.usedQuestions =[];
+      this.failedQuiz = false
+      this.progress = 0;
+      this.usedQuestions = [];
       this.finishedQuiz = false;
       this.questionIndex = this.fetchRandomQuestion();
     }
@@ -82,18 +110,22 @@ export default {
 
 
 <template>
-  <div v-if="!finishedQuiz">
+  <ProgressBar :progress="progress"></ProgressBar>
+
+  <div v-if="failedQuiz">
+    Risposta sbagliata
+    <RestartBtn @click="restartQuiz()"></RestartBtn>
+  </div>
+
+  <div v-if="!finishedQuiz && !failedQuiz">
     <DomandaComp :quiz="quiz[questionIndex]"></DomandaComp>
     <RisposteComp :quiz="quiz[questionIndex]" @optionSelected="fetchNextQuestion"></RisposteComp>
   </div>
 
-
-  <div v-else>
+  <div v-if="finishedQuiz">
     <div class="text-center">Hai terminato il quiz</div>
-    <RestartBtn  @click="restartQuiz()"></RestartBtn>
+    <RestartBtn @click="restartQuiz()"></RestartBtn>
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
