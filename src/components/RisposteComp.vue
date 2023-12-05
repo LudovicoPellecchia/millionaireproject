@@ -8,17 +8,32 @@ export default {
 
     data() {
         return {
-            isCorrect: false
+            selectedOption: null,
+            isAnimationActive: false
+
         }
     },
 
     methods: {
         selectOption(option) {
-            if(option === this.quiz.rispostaCorretta){
-                this.isCorrect = true
+            const isCorrect = option === this.quiz?.rispostaCorretta;
+            this.selectedOption = isCorrect ? option : null;
+
+            if (isCorrect) {
+                this.activateAnimation();
             }
-            this.$emit('optionSelected', option, this.isCorrect);
+
+            this.$emit('optionSelected', option, isCorrect);
         },
+
+
+        activateAnimation() {
+            this.isAnimationActive = true;
+            // Disabilita l'animazione dopo un certo periodo
+            setTimeout(() => {
+                this.isAnimationActive = false;
+            }, 1500); // Imposta la durata dell'animazione in millisecondi
+        }
 
     }
 }
@@ -29,19 +44,21 @@ export default {
     <div class="container my-style-container">
         <div class="row row-cols-2 gy-3">
             <div class="col d-flex justify-content-center" v-for="opzione in quiz?.opzioni" :key="opzione">
-                <div class="items" @click="selectOption(opzione)"
-                    :class="isCorrect ? 'correct-answer' : ''">
+                <div class="item" @click="selectOption(opzione)" :class="{
+                    'correct-answer': selectedOption === opzione,
+                    'fade-animation': selectedOption !== opzione && isAnimationActive,
+                    'no-hover': isAnimationActive
+
+                }">
                     {{ opzione }}
                 </div>
             </div>
-
         </div>
-
     </div>
 </template>
 
 <style lang="scss" scoped>
-.items {
+.item {
     background-color: #E09F7D;
     width: 70%;
     font-weight: 600;
@@ -52,16 +69,71 @@ export default {
     cursor: pointer;
     padding: 10px 14px;
     box-shadow: 10px 10px #311847;
-    transition: transform 500ms, box-shadow 500ms;
+    transition: transform 0.5s;
+
+
+
 
     &:hover {
-        transform: scale(1.1);
-        box-shadow: 10px 10px 2px #311847;
+        transform: scale(1.06);
+        animation: tilt-shaking 0.5s infinite 0.5s;
+
+        @keyframes tilt-shaking {
+            0% {
+                transform: scale(1.06) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.06) rotate(1deg);
+            }
+
+            50% {
+                transform: scale(1.06) rotate(0eg);
+            }
+
+            75% {
+                transform: scale(1.06) rotate(-1deg);
+            }
+
+            100% {
+                transform: scale(1.06) rotate(0deg);
+            }
+        }
+
     }
+
+
+
+
 
 }
 
+.no-hover {
+        pointer-events: none;
+}
+
+.fade-animation {
+    animation: fade-out 0.4s linear forwards; // Aggiunto "forwards" per mantenere l'ultimo stato dell'animazione
+
+    @keyframes fade-out {
+        0% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+    }
+}
+
+
+
 .correct-answer {
+    transform: scale(1.1);
     background-color: #B1CC74 !important;
+    transition: background-color 200ms;
+
 }
 </style>

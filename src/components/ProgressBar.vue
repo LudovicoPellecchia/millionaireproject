@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .my-progress-bar-container {
     border-radius: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     width: 100%;
     height: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;

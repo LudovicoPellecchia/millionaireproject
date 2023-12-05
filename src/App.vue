@@ -31,7 +31,7 @@ export default {
   color: white;
   display: inline-block;
   background-color: #311847;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   border-radius: 40px;
   padding: 20px 40px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

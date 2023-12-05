@@ -85,7 +85,7 @@ export default {
         } else {
           handleWrongAnswer();
         }
-      }, 1000);
+      }, 1500);
     },
 
 
