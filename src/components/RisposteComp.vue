@@ -9,8 +9,9 @@ export default {
     data() {
         return {
             selectedOption: null,
-            isAnimationActive: false
-
+            hoveredOption: null,
+            fadeAnimationActive: false,
+            hoverMouseLeave: false
         }
     },
 
@@ -20,6 +21,8 @@ export default {
             this.selectedOption = isCorrect ? option : null;
 
             if (isCorrect) {
+                this.fadeAnimationActive= false,
+                this.hoverMouseLeave= false
                 this.activateAnimation();
             }
 
@@ -28,11 +31,21 @@ export default {
 
 
         activateAnimation() {
-            this.isAnimationActive = true;
+            this.fadeAnimationActive = true;
             // Disabilita l'animazione dopo un certo periodo
             setTimeout(() => {
-                this.isAnimationActive = false;
+                this.fadeAnimationActive = false;
             }, 1500); // Imposta la durata dell'animazione in millisecondi
+        },
+
+        leaveHoverAnimation(option) {
+            this.hoveredOption = option
+            this.hoverMouseLeave = true
+
+/*             setTimeout(() => {
+                this.hoverMouseLeave = true
+            }, 500); // Imposta la durata dell'animazione in millisecondi
+ */
         }
 
     }
@@ -44,11 +57,11 @@ export default {
     <div class="container my-style-container">
         <div class="row row-cols-2 gy-3">
             <div class="col d-flex justify-content-center" v-for="opzione in quiz?.opzioni" :key="opzione">
-                <div class="item" @click="selectOption(opzione)" :class="{
+                <div class="item" @mouseleave="leaveHoverAnimation(opzione)" @click="selectOption(opzione)" :class="{
                     'correct-answer': selectedOption === opzione,
-                    'fade-animation': selectedOption !== opzione && isAnimationActive,
-                    'no-hover': isAnimationActive
-
+                    'fade-animation': selectedOption !== opzione && fadeAnimationActive,
+                    'no-hover': fadeAnimationActive,
+                    'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave
                 }">
                     {{ opzione }}
                 </div>
@@ -76,7 +89,7 @@ export default {
 
     &:hover {
         transform: scale(1.06);
-        animation: tilt-shaking 0.5s infinite 0.5s;
+        animation: tilt-shaking 0.4s infinite 0.5s ease-in-out;
 
         @keyframes tilt-shaking {
             0% {
@@ -84,32 +97,41 @@ export default {
             }
 
             25% {
-                transform: scale(1.06) rotate(1deg);
+                transform: scale(1.06) rotate(0.5deg);
             }
 
             50% {
-                transform: scale(1.06) rotate(0eg);
+                transform: scale(1.06)rotate(0eg);
             }
 
             75% {
-                transform: scale(1.06) rotate(-1deg);
+                transform: scale(1.06) rotate(-0.5deg);
             }
 
             100% {
                 transform: scale(1.06) rotate(0deg);
             }
         }
-
     }
-
-
-
-
-
 }
 
 .no-hover {
-        pointer-events: none;
+    pointer-events: none;
+}
+
+.leave-mouse-hover {
+    animation: scaling-out 0.5s ease;
+
+    @keyframes scaling-out {
+        from {
+            transform: scale(1.06)
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
 }
 
 .fade-animation {
@@ -131,7 +153,6 @@ export default {
 
 
 .correct-answer {
-    transform: scale(1.1);
     background-color: #B1CC74 !important;
     transition: background-color 200ms;
 
