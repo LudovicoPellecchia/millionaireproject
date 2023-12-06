@@ -10,36 +10,54 @@ export default {
         return {
             selectedOption: null,
             hoveredOption: null,
-            fadeAnimationActive: false,
+            correctAnimationActive: false,
+            wrongAnimationActive: false,
             hoverMouseLeave: false,
             hoverMouseOver: false,
             leaveHoverTimeout: null,
-            startHoverTimeout: null
+            startHoverTimeout: null,
+            isWrong: false,
         }
     },
 
     methods: {
         selectOption(option) {
             const isCorrect = option === this.quiz?.rispostaCorretta;
-            this.selectedOption = isCorrect ? option : null;
+            const isWrong = option !== this.quiz?.rispostaCorretta
+            this.selectedOption = isCorrect ? option : isWrong;
 
             if (isCorrect) {
-                this.fadeAnimationActive = false,
-                    this.hoverMouseLeave = false
+/*                 this.fadeAnimationActive = false,
+                    this.hoverMouseLeave = false */
                 this.correctAnswerAnimation();
             }
+            if (isWrong) {
+                this.selectedOption = option
+                this.isWrong = true
+                this.wrongAnswerAnimation();
+            }
+
 
             this.$emit('optionSelected', option, isCorrect);
         },
 
 
         correctAnswerAnimation() {
-            this.fadeAnimationActive = true;
+            this.correctAnimationActive = true;
             // Disabilita l'animazione dopo un certo periodo
             setTimeout(() => {
-                this.fadeAnimationActive = false;
+                this.correctAnimationActive = false;
             }, 1500); // Imposta la durata dell'animazione in millisecondi
         },
+
+        wrongAnswerAnimation(){
+            this.wrongAnimationActive = true;
+            // Disabilita l'animazione dopo un certo periodo
+            setTimeout(() => {
+                this.wrongAnimationActive = false;
+            }, 1500); // Imposta la durata dell'animazione in millisecondi
+        },
+
 
         leaveHoverAnimation(option) {
         // Cancella eventuali timeout precedenti
@@ -75,8 +93,10 @@ export default {
                 <div class="item" @mouseleave="leaveHoverAnimation(opzione)" @mouseover="startHoverAnimation(opzione)"
                     @click="selectOption(opzione)" :class="{
                         'correct-answer': selectedOption === opzione,
-                        'fade-animation': selectedOption !== opzione && fadeAnimationActive,
-                        'no-hover': fadeAnimationActive,
+                        'wrong-answer' : selectedOption === opzione && isWrong,
+                        'fade-animation': selectedOption !== opzione && correctAnimationActive,
+                        'opacity-animation': selectedOption !== opzione && wrongAnimationActive,
+                        'no-hover': correctAnimationActive,
                         'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave && !hoverMouseOver,
                         'start-mouse-hover': hoveredOption === opzione && hoverMouseOver && !hoverMouseLeave,
                     }">
@@ -166,11 +186,19 @@ export default {
     }
 }
 
+.opacity-animation{
+    opacity: 0;
+    transition: opacity 1s;
+}
+
 
 
 .correct-answer {
     background-color: #B1CC74 !important;
     transition: background-color 200ms;
-
+}
+.wrong-answer {
+    background-color: rgb(204, 116, 116) !important;
+    transition: background-color 200ms;
 }
 </style>

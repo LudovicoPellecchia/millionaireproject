@@ -20,7 +20,8 @@ export default {
       questionIndex: null,
       finishedQuiz: false,
       progress: 0,
-      failedQuiz: false
+      failedQuiz: false,
+      quizCounter: 0
     }
   },
 
@@ -81,8 +82,10 @@ export default {
       // Ritarda l'esecuzione della funzione di 1 secondo
       setTimeout(() => {
         if (selectedOption === correctAnswer) {
+          this.quizCounter++
           handleCorrectAnswer();
         } else {
+          this.quizCounter = 0
           handleWrongAnswer();
         }
       }, 1500);
@@ -96,6 +99,7 @@ export default {
       this.usedQuestions = [];
       this.finishedQuiz = false;
       this.questionIndex = this.fetchRandomQuestion();
+      this.quizCounter = 0
     }
   },
 
@@ -110,6 +114,7 @@ export default {
 
 
 <template>
+  <div class="text-end pe-4 mb-2 fs-5">{{quizCounter}} / 10</div>
   <ProgressBar :progress="progress"></ProgressBar>
 
   <div v-if="failedQuiz">

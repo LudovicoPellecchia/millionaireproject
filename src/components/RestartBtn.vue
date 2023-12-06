@@ -15,7 +15,7 @@ export default {
 
 <template>
 
-    <div>
+    <div class="text-end">
         <div class="restart-btn">
             Ricomincia il gioco
         </div>
