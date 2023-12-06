@@ -1,52 +1,107 @@
 [
     {
-        "domanda": "Qual è uno dei principali criteri diagnostici per l'autismo secondo il DSM-5?",
-        "opzioni": ["Carente interesse per gli altri", "Eccellente abilità comunicative", "Elevata tolleranza al cambiamento", "Forte preferenza per attività solitarie"],
-        "rispostaCorretta": "Carente interesse per gli altri"
+        "domanda": "Qual è la capitale dell'Italia?",
+        "opzioni": ["Madrid", "Parigi", "Roma", "Londra"],
+        "rispostaCorretta": "Roma"
     },
     {
-        "domanda": "Quale delle seguenti caratteristiche è spesso associata all'autismo?",
-        "opzioni": ["Abilità sociale avanzate", "Ipersensibilità al suono", "Sviluppo linguistico precoce", "Elevata capacità di adattamento"],
-        "rispostaCorretta": "Ipersensibilità al suono"
+        "domanda": "Quale elemento chimico ha il simbolo 'O'?",
+        "opzioni": ["Oro", "Ossigeno", "Azoto", "Idrogeno"],
+        "rispostaCorretta": "Ossigeno"
     },
     {
-        "domanda": "Quale aspetto del comportamento sociale è coinvolto nei disturbi dello spettro autistico?",
-        "opzioni": ["Comunicazione verbale avanzata", "Difficoltà nella reciprocità sociale", "Eccezionale intuizione emotiva", "Forti abilità di persuasione"],
-        "rispostaCorretta": "Difficoltà nella reciprocità sociale"
+        "domanda": "Chi è l'autore di 'Romeo e Giulietta'?",
+        "opzioni": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Agatha Christie"],
+        "rispostaCorretta": "William Shakespeare"
     },
     {
-        "domanda": "In che modo l'autismo può influire sulla comunicazione non verbale?",
-        "opzioni": ["Elevata competenza nell'uso del linguaggio del corpo", "Limitata espressione facciale", "Eccezionale gestualità", "Intensa attenzione visiva"],
-        "rispostaCorretta": "Limitata espressione facciale"
+        "domanda": "Quanto è lungo il perimetro di un quadrato con lato di lunghezza 5?",
+        "opzioni": ["15", "20", "25", "10"],
+        "rispostaCorretta": "20"
     },
     {
-        "domanda": "Quale delle seguenti affermazioni riflette un possibile interesse ristretto e perseverante tipico dell'autismo?",
-        "opzioni": ["Ampia varietà di interessi in continuo cambiamento", "Forte adattamento alle nuove attività", "Fascinazione persistente per un argomento specifico", "Scarso coinvolgimento nelle attività ricreative"],
-        "rispostaCorretta": "Fascinazione persistente per un argomento specifico"
+        "domanda": "Qual è il più grande oceano del mondo?",
+        "opzioni": ["Oceano Atlantico", "Oceano Indiano", "Oceano Pacifico", "Oceano Antartico"],
+        "rispostaCorretta": "Oceano Pacifico"
     },
     {
-        "domanda": "Come possono variare le manifestazioni dell'autismo nei diversi individui?",
-        "opzioni": ["Le manifestazioni sono sempre identiche in tutti gli individui", "Le manifestazioni sono totalmente imprevedibili", "Le manifestazioni possono variare notevolmente", "Le manifestazioni sono statiche nel tempo"],
-        "rispostaCorretta": "Le manifestazioni possono variare notevolmente"
+        "domanda": "Quale pianeta è conosciuto come 'la stella del mattino' o 'la stella della sera'?",
+        "opzioni": ["Marte", "Venere", "Giove", "Saturno"],
+        "rispostaCorretta": "Venere"
     },
     {
-        "domanda": "Quale delle seguenti non è una categoria del DSM-5 per i disturbi dello spettro autistico?",
-        "opzioni": ["Disturbo Autistico", "Disturbo di Asperger", "Disturbo Ipersessuale", "Disturbo dello Sviluppo Globale Ritardato"],
-        "rispostaCorretta": "Disturbo Ipersessuale"
+        "domanda": "In quale anno è stata fondata la Microsoft?",
+        "opzioni": ["1975", "1985", "1995", "2005"],
+        "rispostaCorretta": "1975"
     },
     {
-        "domanda": "In quale fase dello sviluppo infantile possono emergere i segni precoci dell'autismo?",
-        "opzioni": ["Neonatale", "Adolescenza", "Primi anni di vita", "Età adulta"],
-        "rispostaCorretta": "Primi anni di vita"
+        "domanda": "Qual è la più alta montagna del mondo?",
+        "opzioni": ["Monte Everest", "Monte Kilimanjaro", "Monte McKinley", "Monte Rosa"],
+        "rispostaCorretta": "Monte Everest"
     },
     {
-        "domanda": "Qual è uno dei principali obiettivi nel trattamento dell'autismo secondo il DSM-5?",
-        "opzioni": ["Aumentare la socializzazione", "Ridurre l'ipersensibilità sensoriale", "Eliminare completamente i comportamenti ripetitivi", "Potenziare le abilità motorie"],
-        "rispostaCorretta": "Aumentare la socializzazione"
+        "domanda": "Chi ha dipinto 'La Gioconda'?",
+        "opzioni": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+        "rispostaCorretta": "Leonardo da Vinci"
     },
     {
-        "domanda": "Quale delle seguenti affermazioni riflette un possibile deficit nelle abilità di gioco tipico dell'autismo?",
-        "opzioni": ["Partecipa attivamente al gioco di gruppo", "Mostra scarsa immaginazione nel gioco simbolico", "Rifiuta sempre di giocare con gli altri", "Manifesta grande entusiasmo per i giochi competitivi"],
-        "rispostaCorretta": "Mostra scarsa immaginazione nel gioco simbolico"
+        "domanda": "Quale lingua è parlata in Brasile?",
+        "opzioni": ["Spagnolo", "Portoghese", "Francese", "Inglese"],
+        "rispostaCorretta": "Portoghese"
+    },
+    {
+        "domanda": "Quale è l'elemento chimico con il simbolo 'Fe'?",
+        "opzioni": ["Ferro", "Fosforo", "Fluoro", "Francio"],
+        "rispostaCorretta": "Ferro"
+    },
+    {
+        "domanda": "Chi ha scritto 'Il Conte di Montecristo'?",
+        "opzioni": ["Victor Hugo", "Alexandre Dumas", "Gustave Flaubert", "Honore de Balzac"],
+        "rispostaCorretta": "Alexandre Dumas"
+    },
+    {
+        "domanda": "Quanto è la radice quadrata di 144?",
+        "opzioni": ["10", "12", "14", "16"],
+        "rispostaCorretta": "12"
+    },
+    {
+        "domanda": "Qual è la velocità della luce in vuoto?",
+        "opzioni": ["300,000 km/s", "500,000 km/s", "700,000 km/s", "900,000 km/s"],
+        "rispostaCorretta": "300,000 km/s"
+    },
+    {
+        "domanda": "In quale anno è stata fondata l'UNESCO?",
+        "opzioni": ["1945", "1955", "1965", "1975"],
+        "rispostaCorretta": "1945"
+    },
+    {
+        "domanda": "Chi è l'autore della teoria dell'evoluzione per selezione naturale?",
+        "opzioni": ["Charles Darwin", "Gregor Mendel", "Alfred Russel Wallace", "Jean-Baptiste Lamarck"],
+        "rispostaCorretta": "Charles Darwin"
+    },
+    {
+        "domanda": "Quale pianeta del sistema solare ha il giorno più lungo?",
+        "opzioni": ["Giove", "Saturno", "Marte", "Venere"],
+        "rispostaCorretta": "Venere"
+    },
+    {
+        "domanda": "Qual è l'anno della Rivoluzione Russa?",
+        "opzioni": ["1905", "1917", "1923", "1931"],
+        "rispostaCorretta": "1917"
+    },
+    {
+        "domanda": "Chi ha scritto '1984'?",
+        "opzioni": ["Aldous Huxley", "George Orwell", "Ray Bradbury", "Margaret Atwood"],
+        "rispostaCorretta": "George Orwell"
+    },
+    {
+        "domanda": "Quale è il fiume più lungo del mondo?",
+        "opzioni": ["Rio delle Amazzoni", "Nilo", "Mississippi", "Gange"],
+        "rispostaCorretta": "Nilo"
+    },
+    {
+        "domanda": "Qual è la lingua ufficiale del Sudafrica?",
+        "opzioni": ["Inglese", "Afrikaans", "Zulu", "Xhosa"],
+        "rispostaCorretta": "Inglese"
     }
 ]
