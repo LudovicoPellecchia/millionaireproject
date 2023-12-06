@@ -96,7 +96,7 @@ export default {
                         'wrong-answer' : selectedOption === opzione && isWrong,
                         'fade-animation': selectedOption !== opzione && correctAnimationActive,
                         'opacity-animation': selectedOption !== opzione && wrongAnimationActive,
-                        'no-hover': correctAnimationActive,
+                        'no-hover': correctAnimationActive || wrongAnimationActive,
                         'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave && !hoverMouseOver,
                         'start-mouse-hover': hoveredOption === opzione && hoverMouseOver && !hoverMouseLeave,
                     }">
@@ -171,7 +171,7 @@ export default {
 
 
 .fade-animation {
-    animation: fade-out 0.4s linear forwards; // Aggiunto "forwards" per mantenere l'ultimo stato dell'animazione
+    animation: fade-out 0.4s  linear forwards; // Aggiunto "forwards" per mantenere l'ultimo stato dell'animazione
 
     @keyframes fade-out {
         0% {
@@ -188,7 +188,7 @@ export default {
 
 .opacity-animation{
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 1s 0.5s;
 }
 
 
