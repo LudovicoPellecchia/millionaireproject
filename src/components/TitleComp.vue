@@ -2,7 +2,7 @@
 
 
 export default {
-    components:{
+    components: {
     },
 
     props: {
@@ -17,16 +17,27 @@ export default {
 
 
 <template>
-    
+    <div class="transform ">
 
-    <div class="transform typewriter">
-
-        <h1 class="title"><span class="hidden-text">DO</span> <span class="hidden-text">YOUR</span> <span
-                class="hidden-text">QUIZ!</span></h1>
+        <h1 class="title typewriter">
+            <div class="hidden-text">
+                <span class="apici">&ldquo;</span>
+                DO
+            </div>
+            <div class="hidden-text">YOUR</div>
+            <div class="hidden-text">QUIZ!</div>
+        </h1>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.apici {
+    display: block;
+    position: absolute;
+    top: -25px;
+    left: -25px;
+}
+
 .transform {
     display: flex;
     justify-content: center;
@@ -34,39 +45,32 @@ export default {
     transform: skewY(-4deg);
 }
 
-.hidden-text {
+/* .hidden-text {
     opacity: 0;
 }
-
-span:nth-child(1) {
-
-    align-self: flex-start;
+ */
+div:nth-child(1) {
+    position: relative;
     animation:
-        typing 1s steps(40, ),
-        blink-caret 1.5s step-end forwards,
         show-text forwards
 }
 
-span:nth-child(2) {
-    align-self: center;
+div:nth-child(2) {
+    text-align: center;
     animation:
-        typing 1s 1s steps(40, end),
-        blink-caret 2s 1.5s step-end forwards,
         show-text 0s 1.5s forwards
 }
 
-span:nth-child(3) {
-    align-self: flex-end;
+div:nth-child(3) {
+    text-align: end;
     animation:
-        typing 1s 2s steps(40, end),
-        blink-caret 2s 2.5s step-end infinite,
         show-text 0s 2.5s forwards
 }
 
 .title {
+    background-size: cover;
     width: 50%;
-    display: flex;
-    flex-direction: column;
+
     align-items: center;
     margin-top: 20px;
     letter-spacing: 10px;
@@ -82,7 +86,7 @@ span:nth-child(3) {
 }
 
 
-.typewriter h1 span {
+.typewriter h1 div {
 
     overflow: hidden;
     /* Ensures the content is not revealed until the animation */
@@ -96,31 +100,11 @@ span:nth-child(3) {
 
 }
 
-/* The typing effect */
-@keyframes typing {
-    from {
-        width: 0
-    }
-
-    to {
-        width: 50%;
-    }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-
-    from,
-    to {
-        border-color: transparent
-    }
-
-    50% {
-        border-color: white;
-    }
-}
-
 @keyframes show-text {
+    from {
+        opacity: 0;
+    }
+
     to {
         opacity: 1;
     }
