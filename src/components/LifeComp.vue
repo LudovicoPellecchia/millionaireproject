@@ -16,7 +16,11 @@ export default {
 
 <template>
     <div class="life-container">
-        <i :class="(errorCounter >= 3) ? 'fa-regular fa-heart underline' : 'fa-solid fa-heart'"></i>
+        <i :class="{
+            'pulse-animation': errorCounter >= 2,
+            'fa-regular fa-heart underline': errorCounter >= 3,
+            'fa-solid fa-heart': errorCounter < 3
+        }"></i>
         <i :class="(errorCounter >= 2) ? 'fa-regular fa-heart underline' : 'fa-solid fa-heart'"></i>
         <i :class="(errorCounter >= 1) ? 'fa-regular fa-heart underline' : 'fa-solid fa-heart'"></i>
     </div>
@@ -37,5 +41,24 @@ export default {
 
 .underline {
     text-decoration-line: line-through;
+}
+
+.pulse-animation {
+    transform: scale(1);
+    animation: pulse 1.5s 3;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(0.90);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 </style>
