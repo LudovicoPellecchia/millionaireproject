@@ -1,6 +1,9 @@
 <script>
 
+
 export default {
+    components:{
+    },
 
     props: {
     },
@@ -14,8 +17,12 @@ export default {
 
 
 <template>
+    
+
     <div class="transform typewriter">
-        <h1 class="title"><span>DO</span> <span>YOUR</span> <span>QUIZ!</span></h1>
+
+        <h1 class="title"><span class="hidden-text">DO</span> <span class="hidden-text">YOUR</span> <span
+                class="hidden-text">QUIZ!</span></h1>
     </div>
 </template>
 
@@ -27,25 +34,33 @@ export default {
     transform: skewY(-4deg);
 }
 
+.hidden-text {
+    opacity: 0;
+}
+
 span:nth-child(1) {
-    
+
     align-self: flex-start;
     animation:
         typing 1s steps(40, ),
-        blink-caret 1s step-end forwards,
+        blink-caret 1.5s step-end forwards,
+        show-text forwards
 }
+
 span:nth-child(2) {
     align-self: center;
     animation:
         typing 1s 1s steps(40, end),
-        blink-caret .1s 1s step-end forwards,
-
+        blink-caret 2s 1.5s step-end forwards,
+        show-text 0s 1.5s forwards
 }
+
 span:nth-child(3) {
     align-self: flex-end;
     animation:
         typing 1s 2s steps(40, end),
-        blink-caret .75s 2s step-end infinite;
+        blink-caret 2s 2.5s step-end infinite,
+        show-text 0s 2.5s forwards
 }
 
 .title {
@@ -59,7 +74,6 @@ span:nth-child(3) {
     text-shadow: 3px 7px rgb(196, 35, 102);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
-    margin-bottom: 80px;
     /*     padding: 20px 40px;
  */
     /*   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -78,7 +92,7 @@ span:nth-child(3) {
     /* Gives that scrolling effect as the typing happens */
     letter-spacing: .07em;
     /* Adjust as needed */
-    
+
 
 }
 
@@ -106,10 +120,9 @@ span:nth-child(3) {
     }
 }
 
-@keyframes remove-border {
+@keyframes show-text {
     to {
-        border-right: .10em solid transparent;
+        opacity: 1;
     }
 }
-
 </style>

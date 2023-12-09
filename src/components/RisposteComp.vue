@@ -17,28 +17,26 @@ export default {
             leaveHoverTimeout: null,
             startHoverTimeout: null,
             isWrong: false,
+            isCorrect: false
         }
     },
 
     methods: {
-        selectOption(option) {
-            const isCorrect = option === this.quiz?.rispostaCorretta;
-            const isWrong = option !== this.quiz?.rispostaCorretta
-            this.selectedOption = isCorrect ? option : isWrong;
+        selectOption(option, index) {
+            this.selectedOption = option
 
-            if (isCorrect) {
-/*                 this.fadeAnimationActive = false,
-                    this.hoverMouseLeave = false */
+            this.isCorrect= this.selectedOption === this.quiz?.rispostaCorretta;
+            this.isWrong = this.selectedOption !== this.quiz?.rispostaCorretta && this.selectedOption === this.quiz?.opzioni[index];
+
+            if (this.isCorrect) {
                 this.correctAnswerAnimation();
             }
-            if (isWrong) {
-                this.selectedOption = option
-                this.isWrong = true
+            if (this.isWrong) {
                 this.wrongAnswerAnimation();
             }
 
 
-            this.$emit('optionSelected', option, isCorrect);
+            this.$emit('optionSelected', option, this.isCorrect, this.isWrong );
         },
 
 
@@ -46,6 +44,7 @@ export default {
             this.correctAnimationActive = true;
             // Disabilita l'animazione dopo un certo periodo
             setTimeout(() => {
+                this.isCorrect= false
                 this.correctAnimationActive = false;
             }, 1500); // Imposta la durata dell'animazione in millisecondi
         },
@@ -54,6 +53,7 @@ export default {
             this.wrongAnimationActive = true;
             // Disabilita l'animazione dopo un certo periodo
             setTimeout(() => {
+                this.isWrong = false
                 this.wrongAnimationActive = false;
             }, 1500); // Imposta la durata dell'animazione in millisecondi
         },
@@ -61,18 +61,18 @@ export default {
 
         leaveHoverAnimation(option) {
         // Cancella eventuali timeout precedenti
-        clearTimeout(this.startHoverTimeout);
+        clearTimeout(this.leaveHoverTimeout);
 
         this.leaveHoverTimeout = setTimeout(() => {
             this.hoveredOption = option;
             this.hoverMouseLeave = true;
             this.hoverMouseOver = false;
-        }, 2); // Imposta la durata dell'animazione in millisecondi
+        }, 20); // Imposta la durata dell'animazione in millisecondi
     },
 
     startHoverAnimation(option) {
         // Cancella eventuali timeout precedenti
-        clearTimeout(this.leaveHoverTimeout);
+        clearTimeout(this.startHoverTimeout);
 
         this.startHoverTimeout = setTimeout(() => {
             this.hoveredOption = option;
@@ -89,13 +89,13 @@ export default {
 <template>
     <div class="container my-style-container">
         <div class="row row-cols-2 gy-3">
-            <div class="col d-flex justify-content-center" v-for="opzione in quiz?.opzioni" :key="opzione">
+            <div class="col d-flex justify-content-center" v-for="(opzione, index) in quiz?.opzioni" :key="opzione">
                 <div class="item" @mouseleave="leaveHoverAnimation(opzione)" @mouseover="startHoverAnimation(opzione)"
-                    @click="selectOption(opzione)" :class="{
-                        'correct-answer': selectedOption === opzione,
+                    @click="selectOption(opzione, index)" :class="{
+                        'correct-answer': selectedOption === opzione && isCorrect || (opzione === quiz?.rispostaCorretta && isWrong) ,
                         'wrong-answer' : selectedOption === opzione && isWrong,
                         'fade-animation': selectedOption !== opzione && correctAnimationActive,
-                        'opacity-animation': selectedOption !== opzione && wrongAnimationActive,
+                        'opacity-animation': selectedOption !== opzione && wrongAnimationActive && (opzione !== quiz?.rispostaCorretta && isWrong),
                         'no-hover': correctAnimationActive || wrongAnimationActive,
                         'leave-mouse-hover': hoveredOption === opzione && hoverMouseLeave && !hoverMouseOver,
                         'start-mouse-hover': hoveredOption === opzione && hoverMouseOver && !hoverMouseLeave,
@@ -108,7 +108,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
 .item {
+    font-family: 'Anonymous Pro', monospace;
     background-color: #E09F7D;
     width: 70%;
     font-weight: 600;
@@ -191,14 +194,12 @@ export default {
     transition: opacity 1s 0.5s;
 }
 
-
-
 .correct-answer {
     background-color: #B1CC74 !important;
     transition: background-color 200ms;
 }
 .wrong-answer {
-    background-color: rgb(204, 116, 116) !important;
+    background-color: rgb(211, 69, 69) !important;
     transition: background-color 200ms;
 }
 </style>

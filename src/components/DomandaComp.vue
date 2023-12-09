@@ -23,11 +23,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
 .domanda-style {
     text-align: center;
     margin-bottom: 80px;
 
     div {
+        font-family: 'Anonymous Pro', monospace;
         color: white;
         border-radius: 40px;
         padding: 20px 40px;
