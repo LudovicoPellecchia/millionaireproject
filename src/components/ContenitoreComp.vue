@@ -25,7 +25,7 @@ export default {
       failedQuiz: false,
       quizCounter: 0,
       errorCounter: null,
-      correctAnswerList:[],
+      correctAnswerList: [],
     }
   },
 
@@ -106,7 +106,7 @@ export default {
 
 
     restartQuiz() {
-      this.correctAnswerList =[]
+      this.correctAnswerList = []
       this.errorCounter = null
       this.failedQuiz = false
       this.progress = 0;
@@ -128,29 +128,31 @@ export default {
 
 
 <template>
-  <div class="d-flex justify-content-between">
+  <div class="content-wrapper">
+    <div class="d-flex justify-content-between">
 
-    <LifeComp :errorCounter="errorCounter"></LifeComp>
+      <LifeComp :errorCounter="errorCounter"></LifeComp>
 
-    <div class="text-end pe-4 mb-2 fs-5 text-white counter">{{ quizCounter }} / 10</div>
-  </div>
+      <div class="text-end pe-4 mb-2 fs-5 text-white counter">{{ quizCounter }} / 10</div>
+    </div>
 
 
-  <ProgressBar :progress="progress"></ProgressBar>
+    <ProgressBar :progress="progress"></ProgressBar>
 
-  <div v-if="failedQuiz" class="text-white text-center pt-4">
-    Hai perso!
-    <RestartBtn @click="restartQuiz()"></RestartBtn>
-  </div>
+    <div v-if="failedQuiz" class="text-white text-center pt-4">
+      Hai perso!
+      <RestartBtn @click="restartQuiz()"></RestartBtn>
+    </div>
 
-  <div v-if="!finishedQuiz && !failedQuiz">
-    <DomandaComp :quiz="quiz[questionIndex]"></DomandaComp>
-    <RisposteComp :quiz="quiz[questionIndex]" @optionSelected="fetchNextQuestion"></RisposteComp>
-  </div>
+    <div v-if="!finishedQuiz && !failedQuiz">
+      <DomandaComp :quiz="quiz[questionIndex]"></DomandaComp>
+      <RisposteComp :quiz="quiz[questionIndex]" @optionSelected="fetchNextQuestion"></RisposteComp>
+    </div>
 
-  <div v-if="finishedQuiz">
-    <div class="text-center text-white">Hai terminato il quiz</div>
-    <RestartBtn @click="restartQuiz()"></RestartBtn>
+    <div v-if="finishedQuiz">
+      <div class="text-center text-white">Hai terminato il quiz</div>
+      <RestartBtn @click="restartQuiz()"></RestartBtn>
+    </div>
   </div>
 </template>
 

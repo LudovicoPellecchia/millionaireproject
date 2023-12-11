@@ -1,7 +1,11 @@
 <script>
 import axios from 'axios';
+import CategoriesComp from './CategoriesComp.vue';
 
 export default {
+    components: {
+        CategoriesComp
+    },
 
     data() {
         return {
@@ -32,6 +36,9 @@ export default {
 
         toggleMenu() {
             this.showMenu = !this.showMenu
+
+            this.$emit('clickedMenu', this.showMenu);
+
         }
     }
 }
@@ -40,7 +47,7 @@ export default {
 
 <template>
     <div class="container">
-        <div class="settings mt-3">
+        <div class="settings mt-3 ">
 
             <div class="setting-title" @click="toggleMenu" :class="{ 'setting-title-active': showMenu }">
                 Genera il tuo quiz
@@ -50,15 +57,63 @@ export default {
 
             <div v-if="showMenu" class="dropdown-menu" :class="{ 'dropdown-menu-animation': showMenu }">
                 <form @submit.prevent="onFormSubmit" class="form-quiz-settings">
-                    <div class="mb-3">
-                        <label>Inserisci l'argomento</label>
-                        <input type="text" class="form-control" v-model="quizSettings.topic" />
+
+                    <div class="form-section-wrapper container">
+                        <div class="row row-cols-2">
+                            <div class="col my-col">
+                                <div class="mb-3">
+                                    <div class="label-wrapper">
+                                        <label>Scegli una categoria
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </label>
+                                    </div>
+
+                                    <CategoriesComp></CategoriesComp>
+                                    <div class="label-wrapper">
+                                        <label>Inserisci l'argomento
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </label>
+                                    </div>
+
+                                    <input type="text" class="form-control input-text" v-model="quizSettings.topic" />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="label-wrapper">
+                                        <label>Seleziona la difficoltà</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Facile</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Intermedio</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Difficile</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label>Seleziona la Lingua</label>
+                                    <input type="text" class="form-control" v-model="quizSettings.topic" />
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="mb-3">
-                        <label>Seleziona la difficoltà</label>
-                        <input type="text" class="form-control" v-model="quizSettings.topic" />
+                    <div class="btn-wrapper text-center">
+                        <button type="submit" class="btn my-btn mb-3 mt-3">Genera</button>
                     </div>
-                    <button type="submit" class="btn my-btn mb-3">Genera</button>
                 </form>
             </div>
         </div>
@@ -103,43 +158,64 @@ export default {
 }
 
 .dropdown-menu {
-
+    border: 1px solid rgba(196, 35, 102, 0.494);
+    box-shadow: 0px 0px 6px rgb(196, 35, 102);
     color: white;
     display: block;
     position: fixed;
-    width: 100%;
+    width: 90%;
     max-width: 800px;
-    background-color: rgb(37, 52, 64);
+    background-color: rgba(37, 52, 64, 0.745);
     border-radius: 20px;
     margin-top: 5px;
-    margin-right:30px ;
-    margin-left:30px ;
+
 
     .form-quiz-settings {
         padding: 15px;
 
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .label-wrapper{
+            text-align: center;
         }
 
-        input {
+        label {
+            text-align: center;
+            display: inline-block;
+            margin-bottom: 5px;
+            position: relative;
+
+            i {
+                color: rgba(255, 255, 255, 0.619);
+                font-size: 0.8rem;
+                position: absolute;
+                top: 0;
+                right: -20px;
+            }
+        }
+
+        .input-text {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
             box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-        }
+    }
+
+    .my-col {
+        border-right: 2px solid rgba(196, 35, 102, 0.494);
+    }
+
+
+    .form-check-input:checked {
+        background-color: rgb(112, 92, 242);
+        border-color: rgb(112, 92, 242);
     }
 }
 
 .dropdown-menu-animation {
     top: 50%;
     left: 50%;
-    
+
     animation: growDown 400ms ease-in-out forwards;
 
 }
@@ -147,21 +223,22 @@ export default {
 @keyframes growDown {
     0% {
 
-        transform: scaleY(0) translate(-50%, -50%);  
+        transform: scaleY(0) translate(-50%, -50%);
     }
 
     80% {
 
-        transform: scaleY(1.1) translate(-50%, -50%);  
+        transform: scaleY(1.1) translate(-50%, -50%);
     }
 
     100% {
 
-        transform: scaleY(1) translate(-50%, -50%);  
+        transform: scaleY(1) translate(-50%, -50%);
     }
 }
 
 .my-btn {
+    display: inline-block;
     color: white;
     background-color: rgb(112, 92, 242);
 
@@ -169,4 +246,5 @@ export default {
         background-color: rgb(112, 92, 242);
 
     }
-}</style>
+}
+</style>
