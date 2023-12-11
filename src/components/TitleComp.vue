@@ -50,6 +50,7 @@ export default {
 }
  */
 div:nth-child(1) {
+    text-align: start;
     position: relative;
     animation:
         show-text forwards

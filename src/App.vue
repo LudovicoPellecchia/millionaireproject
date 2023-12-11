@@ -3,11 +3,14 @@
 <script>
 import ContenitoreComp from './components/ContenitoreComp.vue';
 import TitleComp from './components/TitleComp.vue';
+import PromptComp from './components/PromptComp.vue'
+
 
 export default {
   components: {
     ContenitoreComp,
-    TitleComp
+    TitleComp,
+    PromptComp
   },
 
   data() {
@@ -21,6 +24,7 @@ export default {
 
 <template>
   <div class="container">
+    <PromptComp></PromptComp>
     <TitleComp></TitleComp>
     <ContenitoreComp></ContenitoreComp>
   </div>
