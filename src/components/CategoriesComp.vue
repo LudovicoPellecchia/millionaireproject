@@ -53,7 +53,8 @@ export default {
 
 <template>
     <div class="slider-wrapper">
-        <i class="fa-solid fa-chevron-up arrow-up" @click="prevSlide"></i>
+        <i class="fa-solid fa-chevron-up arrow-up" @click="prevSlide"
+        :class="(currentIndex === 0) ? 'transparence-i' : ''"></i>
 
         <div class="badge-container">
             <div class="badge-wrapper text-center" v-for="(category) in visibleCategories" :key="category.name">
@@ -63,7 +64,8 @@ export default {
             </div>
         </div>
 
-        <i class="fa-solid fa-chevron-down arrow-down" @click="nextSlide"></i>
+        <i class="fa-solid fa-chevron-down arrow-down" @click="nextSlide"
+        :class="(currentIndex === totalSlides - 1) ? 'transparence-i' : ''"></i>
     </div>
 </template>
 
