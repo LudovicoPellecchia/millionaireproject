@@ -21,7 +21,8 @@ export default {
                 { nome: "Sport", backgroundColor: "rgb(173, 216, 230)" }      // Grigio
             ],
             currentIndex: 0,
-            itemsPerPage: 5
+            itemsPerPage: 5,
+            activeBadge: null
         }
     },
     computed: {
@@ -46,6 +47,10 @@ export default {
                 this.currentIndex--;
             }
         },
+
+        selectedCategory(option) {
+            this.activeBadge = option
+        }
     },
 };
 </script>
@@ -58,7 +63,8 @@ export default {
 
         <div class="badge-container">
             <div class="badge-wrapper text-center" v-for="(category) in visibleCategories" :key="category.name">
-                <div class="badge-style" :style="{ 'background-color': category.backgroundColor }">
+                <div class="badge-style" :style="{ 'background-color': category.backgroundColor }"
+                    @click="selectedCategory(category)" :class="{ 'badge-style-active': activeBadge === category }">
                     {{ category.nome }}
                 </div>
             </div>
@@ -93,7 +99,7 @@ export default {
         transform: translate(-50%);
     }
 
-    .transparence-i{
+    .transparence-i {
         color: rgba(255, 255, 255, 0.393);
     }
 }
@@ -103,7 +109,6 @@ export default {
     flex-direction: column;
     gap: 8px;
     margin: 10px 0;
-    overflow: scroll;
 
 }
 
@@ -111,7 +116,11 @@ export default {
     padding: 0 20px;
 }
 
+
 .badge-style {
+    border: 2px solid transparent;
+    box-shadow: 0px 0px 6px transparent;
+
     color: rgba(0, 0, 0, 0.391);
     text-align: center;
     font-size: 0.9rem;
@@ -124,5 +133,13 @@ export default {
         color: black;
         transition: color 0.5s;
     }
+}
+
+.badge-style-active {
+    color: black;
+    font-weight: 600;
+    box-shadow: 0px 0px 6px rgb(196, 35, 102);
+    border: 2px solid rgb(196, 35, 102);
+
 }
 </style>

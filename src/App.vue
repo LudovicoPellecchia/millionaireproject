@@ -41,6 +41,11 @@ export default {
 </template>
 
 <style lang="scss">
+
+.body-wrapper{
+  height: 100vh;
+}
+
 .blur {
   transition: filter 0.5s;
   filter: blur(8px);
