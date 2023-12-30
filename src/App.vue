@@ -4,24 +4,39 @@
 import ContenitoreComp from './components/ContenitoreComp.vue';
 import TitleComp from './components/TitleComp.vue';
 import PromptComp from './components/PromptComp.vue'
+import LoaderComp from './components/LoaderComp.vue';
 
 
 export default {
   components: {
     ContenitoreComp,
     TitleComp,
-    PromptComp
+    PromptComp,
+    LoaderComp
   },
 
   data() {
     return {
-      blurredBody: null
+      quiz:[],
+      blurredBody: null,
+      loaderQuiz: false
 
     }
   },
   methods: {
     blurBody() {
       this.blurredBody = !this.blurredBody
+    },
+    generateQuiz(quiz, loadingQuiz){
+      this.$refs.ContenitoreComp.restartQuiz();
+      this.loaderQuiz = loadingQuiz
+      this.quiz = quiz
+      this.blurredBody = null
+    },
+
+    showLoader(loadingQuiz){
+      this.loaderQuiz = loadingQuiz
+
     }
 
   }
@@ -30,12 +45,14 @@ export default {
 
 
 <template>
-  <div class="body-wrapper" :class="{ 'blur-bg': blurredBody, 'not-blur' : !blurredBody}" >
+  <div class="body-wrapper" :class="{ 'blur-bg': blurredBody, 'not-blur' : !blurredBody, 'loader-active': loaderQuiz} " >
 
     <div class="container">
-      <PromptComp @clickedMenu="blurBody"></PromptComp>
+      <PromptComp @clickedMenu="blurBody" @generatedQuiz="generateQuiz" @loadingQuiz="showLoader"></PromptComp>
       <TitleComp :class="{ 'blur': blurredBody, 'not-blur' : !blurredBody }"></TitleComp>
-      <ContenitoreComp :class="{ 'blur': blurredBody, 'not-blur' : !blurredBody }"></ContenitoreComp>
+      <ContenitoreComp :class="{ 'blur': blurredBody, 'not-blur' : !blurredBody }" :quiz="quiz" ref="ContenitoreComp"></ContenitoreComp>
+      <LoaderComp class="loader-position" :class="{'loader-style' : loaderQuiz}"></LoaderComp>
+
     </div>
   </div>
 </template>
@@ -43,8 +60,38 @@ export default {
 <style lang="scss">
 
 .body-wrapper{
+  position: relative;
   height: 100vh;
+
+  .loader-position{
+    opacity: 0;
+    position: absolute;
+    bottom: 15px;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+
+  .loader-style{
+    animation: showOpacity 1s forwards;
+  }
+
+  @keyframes showOpacity {
+    0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+  }
+
+  
 }
+
+.loader-active{
+    pointer-events:none;
+  }
 
 .blur {
   transition: filter 0.5s;

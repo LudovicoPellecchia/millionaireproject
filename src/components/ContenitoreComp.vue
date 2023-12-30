@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import DomandaComp from './DomandaComp.vue';
 import RisposteComp from './RisposteComp.vue';
 import RestartBtn from './RestartBtn.vue';
@@ -7,6 +6,10 @@ import ProgressBar from './ProgressBar.vue'
 import LifeComp from './LifeComp.vue';
 
 export default {
+  props:{
+    quiz: Object
+  },
+  
   components: {
     DomandaComp,
     RisposteComp,
@@ -17,9 +20,9 @@ export default {
 
   data() {
     return {
-      quiz: [],
-      usedQuestions: [],
-      questionIndex: null,
+/*       quiz: [], */      
+      usedQuestions: [0],
+      questionIndex: 0,
       finishedQuiz: false,
       progress: 0,
       failedQuiz: false,
@@ -30,16 +33,6 @@ export default {
   },
 
   methods: {
-    fetchQuiz() {
-
-      axios.get('quiz.json').then((response) => {
-
-        this.quiz = response.data;
-
-
-      })
-
-    },
 
     fetchRandomQuestion() {
       do {
@@ -62,17 +55,21 @@ export default {
         this.correctAnswerList.push(correctAnswer)
         this.failedQuiz = false;
         // Opzione selezionata corretta, trova un random questionIndex
-        this.fetchRandomQuestion();
         // Dopo ogni domanda risposta correttamente
-        this.progress += 0.1;
         // Verifica se il quiz ha raggiunto il termine
-        if (this.correctAnswerList.length < 10) {
-          await this.fetchQuiz(); // Effettua la chiamata axios solo dopo aver incrementato questionIndex
+        //if (this.correctAnswerList.length < 10) {
+          // await this.fetchQuiz(); Effettua la chiamata axios solo dopo aver incrementato questionIndex
           // Puoi anche aggiungere ulteriori azioni o logiche necessarie qui
-        } else {
+        //} 
+        if (this.correctAnswerList.length < 10) {
+          this.fetchRandomQuestion();
+          this.progress += 0.1;
+        }
+        else{
           // Se hai finito il quiz
           this.finishedQuiz = true;
         }
+
       };
 
       const handleWrongAnswer = () => {
@@ -117,12 +114,18 @@ export default {
     }
   },
 
-
+  computed: {
+    currentQuestion() {
+      return this.quiz ? this.quiz[this.questionIndex] : null;
+    },
+  },
 
   mounted() {
-    this.fetchRandomQuestion()
-    this.fetchQuiz()
-  }
+/*     this.fetchRandomQuestion()
+ *//*     this.fetchQuiz()
+ */  }
+
+
 }
 </script>
 
@@ -145,8 +148,8 @@ export default {
     </div>
 
     <div v-if="!finishedQuiz && !failedQuiz">
-      <DomandaComp :quiz="quiz[questionIndex]"></DomandaComp>
-      <RisposteComp :quiz="quiz[questionIndex]" @optionSelected="fetchNextQuestion"></RisposteComp>
+      <DomandaComp :quiz="currentQuestion"></DomandaComp>
+      <RisposteComp :quiz="currentQuestion" @optionSelected="fetchNextQuestion"></RisposteComp>
     </div>
 
     <div v-if="finishedQuiz">

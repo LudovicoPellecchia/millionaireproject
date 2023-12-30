@@ -15,7 +15,7 @@ export default {
 
 
 <template>
-    <div class="domanda-style">
+    <div v-if="quiz" class="domanda-style">
         <div>
             {{ quiz?.domanda }}
         </div>

@@ -9,38 +9,71 @@ export default {
 
     data() {
         return {
+            quiz: [],
+
             quizSettings: {
-                category:"",
+                category: "",
                 topic: "",
                 difficulty: "",
+                language: "Italiano",
             },
 
+            languages: [
+                "Inglese",
+                "Spagnolo",
+                "Francese",
+                "Tedesco",
+                "Italiano",
+                "Portoghese",
+                "Olandese",
+                "Russo",
+            ],
             showMenu: false,
-            success: null,
-            errors: null
-
+            errors: null,
+            topicPlaceholder: "",
+            loadingQuiz: false
         }
     },
     methods: {
-        onFormSubmit() {
+        generateQuiz() {
+            this.loadingQuiz = true
+            this.$emit('loadingQuiz', this.loadingQuiz)
 
             axios
-                .post("http://localhost:8000/api/messages", this.quizSettings)
+                .post("http://127.0.0.1:8000/api/quiz/generate", {
+                    categoria: this.quizSettings.category,
+                    argomento: this.quizSettings.topic,
+                    difficoltà: this.quizSettings.difficulty,
+                }
+                )
                 .then((response) => {
-                    this.success = response.data.message;
+                    this.quiz = JSON.parse(response.data.quiz.choices[0]?.text);
                     this.errors = null;
+                    this.loadingQuiz = false
+                    this.$emit('generatedQuiz', this.quiz, this.loadingQuiz)
+                    this.showMenu = false
                 })
                 .catch((error) => {
                     this.errors = error.response?.data?.message ?? error.message;
                 });
+
         },
 
         toggleMenu() {
             this.showMenu = !this.showMenu
-
             this.$emit('clickedMenu', this.showMenu);
+        },
 
+        selectCategory(option) {
+            this.quizSettings.category = option.nome
+            this.topicPlaceholder = option.placeholder
+        },
+
+        emptyPlaceholder() {
+            this.topicPlaceholder = ""
         }
+
+
     }
 }
 </script>
@@ -57,63 +90,75 @@ export default {
             </div>
 
             <div v-if="showMenu" class="dropdown-menu" :class="{ 'dropdown-menu-animation': showMenu }">
-                <form @submit.prevent="onFormSubmit" class="form-quiz-settings">
+                <form @submit.prevent="generateQuiz" class="form-quiz-settings">
 
                     <div class="form-section-wrapper container">
                         <div class="row row-cols-2">
+
                             <div class="col my-col">
                                 <div class="mb-3">
-                                    <div class="label-wrapper">
-                                        <label>Scegli una categoria
-                                            <i class="fa-solid fa-circle-info"></i>
-                                        </label>
+                                    <div class="category-wrapper">
+                                        <div class="label-wrapper">
+                                            <label>Scegli una categoria
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </label>
+                                        </div>
+                                        <CategoriesComp @selectedCategory="selectCategory"></CategoriesComp>
                                     </div>
 
-                                    <CategoriesComp></CategoriesComp>
-                                    <div class="label-wrapper">
-                                        <label>Inserisci l'argomento
-                                            <i class="fa-solid fa-circle-info"></i>
-                                        </label>
+                                    <div class="topic-wrapper pt-3">
+                                        <div class="label-wrapper">
+                                            <label>Inserisci l'argomento
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </label>
+                                        </div>
+                                        <input type="text" class="form-control input-text" v-model="quizSettings.topic"
+                                            :placeholder="topicPlaceholder" @click="emptyPlaceholder()" />
                                     </div>
-
-                                    <input type="text" class="form-control input-text" v-model="quizSettings.topic" />
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mb-3">
-                                    <div class="label-wrapper">
-                                        <label>Seleziona la difficoltà</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                            id="inlineRadio1" value="option1">
-                                        <label class="form-check-label" for="inlineRadio1">Facile</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                            id="inlineRadio2" value="option2">
-                                        <label class="form-check-label" for="inlineRadio2">Intermedio</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                            id="inlineRadio3" value="option3">
-                                        <label class="form-check-label" for="inlineRadio3">Difficile</label>
+                                    <div class="difficulty-wrapper">
+                                        <div class="label-wrapper">
+                                            <label>Seleziona la difficoltà</label>
+                                        </div>
+                                        <div class="radios-wrapper">
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineRadio1"
+                                                    value="Facile" v-model="quizSettings.difficulty">
+                                                <label class="form-check-label" for="inlineRadio1">Facile</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineRadio2"
+                                                    value="Intermedio" v-model="quizSettings.difficulty">
+                                                <label class="form-check-label" for="inlineRadio2">Intermedio</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineRadio3"
+                                                    value="Molto Difficile" v-model="quizSettings.difficulty">
+                                                <label class="form-check-label" for="inlineRadio3">Difficile</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-
                                 <div class="mb-3">
-                                    <label>Seleziona la Lingua</label>
-                                    <input type="text" class="form-control" v-model="quizSettings.topic" />
+                                    <div class="language-wrapper pt-3">
+                                        <label>Seleziona la Lingua</label>
+                                        <select class="form-control" v-model="quizSettings.language">
+                                            <option v-for="language in languages" :value=language :key="language">{{
+                                                language }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="btn-wrapper">
+                                    <button type="submit" class="btn my-btn mb-3 mt-3">Genera</button>
                                 </div>
                             </div>
                         </div>
-
-
-                    </div>
-                    <div class="btn-wrapper text-center">
-                        <button type="submit" class="btn my-btn mb-3 mt-3">Genera</button>
                     </div>
                 </form>
             </div>
@@ -174,7 +219,7 @@ export default {
     .form-quiz-settings {
         padding: 15px;
 
-        .label-wrapper{
+        .label-wrapper {
             text-align: center;
         }
 
@@ -210,6 +255,10 @@ export default {
     .form-check-input:checked {
         background-color: rgb(112, 92, 242);
         border-color: rgb(112, 92, 242);
+    }
+
+    .radios-wrapper {
+        padding: 20px 0;
     }
 }
 

@@ -2,27 +2,29 @@
 
 export default {
 
-    props: {
-    },
-
     data() {
         return {
             categories: [
-                { nome: "Matematica", backgroundColor: "rgb(173, 216, 230)" },  // Celeste
-                { nome: "Scienze", backgroundColor: "rgb(144, 238, 144)" },     // Verde chiaro
-                { nome: "Storia", backgroundColor: "rgb(221, 160, 221)" },      // Lilla
-                { nome: "Programmazione", backgroundColor: "rgb(255, 182, 193)" },  // Rosa chiaro
-                { nome: "Lingue", backgroundColor: "rgb(255, 228, 181)" },        // Pesca
-                { nome: "Letteratura", backgroundColor: "rgb(255, 239, 184)" },   // Giallo chiaro
-                { nome: "Arte e Musica", backgroundColor: "rgb(204, 204, 255)" }, // Blu chiaro
-                { nome: "Geografia", backgroundColor: "rgb(244, 164, 96)" },      // Rame
-                { nome: "Scienze Sociali", backgroundColor: "rgb(176, 224, 230)" },  // Celeste chiaro
-                { nome: "Filosofia", backgroundColor: "rgb(192, 192, 192)" },
-                { nome: "Sport", backgroundColor: "rgb(173, 216, 230)" }      // Grigio
+
+                { nome: "Matematica", backgroundColor: "rgb(173, 216, 230)", placeholder: "Esempio: Equazioni algebriche" },
+                { nome: "Scienze", backgroundColor: "rgb(144, 238, 144)", placeholder: "Esempio: Il ciclo dell'acqua" },
+                { nome: "Storia", backgroundColor: "rgb(221, 160, 221)", placeholder: "Esempio: La rivoluzione francese" },
+                { nome: "Tecnologia", backgroundColor: "rgb(255, 182, 193)", placeholder: "Esempio: Introduzione a JavaScript" },
+                { nome: "Lingue", backgroundColor: "rgb(255, 228, 181)", placeholder: "Esempio: Grammatica italiana" },
+                { nome: "Letteratura", backgroundColor: "rgb(255, 239, 184)", placeholder: "Esempio: Opere di Shakespeare" },
+                { nome: "Arte, Musica e Spettacolo", backgroundColor: "rgb(204, 204, 255)", placeholder: "Esempio: Impressionismo" },
+                { nome: "Geografia", backgroundColor: "rgb(244, 164, 96)", placeholder: "Esempio: Le capitali del mondo" },
+                { nome: "Scienze Sociali", backgroundColor: "rgb(176, 224, 230)", placeholder: "Esempio: Psicologia sociale" },
+                { nome: "Filosofia", backgroundColor: "rgb(192, 192, 192)", placeholder: "Esempio: Teoria dell'etica" },
+                { nome: "Sport", backgroundColor: "rgb(173, 216, 230)", placeholder: "Esempio: Regole del calcio" },
+                { nome: "Religione", backgroundColor: "rgb(240, 216, 230)", placeholder: "Esempio: Le grandi religioni" }
+
+
             ],
             currentIndex: 0,
             itemsPerPage: 5,
-            activeBadge: null
+            activeBadge: null,
+
         }
     },
     computed: {
@@ -50,6 +52,9 @@ export default {
 
         selectedCategory(option) {
             this.activeBadge = option
+
+            this.$emit('selectedCategory', option);
+
         }
     },
 };
@@ -59,7 +64,7 @@ export default {
 <template>
     <div class="slider-wrapper">
         <i class="fa-solid fa-chevron-up arrow-up" @click="prevSlide"
-        :class="(currentIndex === 0) ? 'transparence-i' : ''"></i>
+            :class="(currentIndex === 0) ? 'transparence-i' : ''"></i>
 
         <div class="badge-container">
             <div class="badge-wrapper text-center" v-for="(category) in visibleCategories" :key="category.name">
@@ -71,7 +76,7 @@ export default {
         </div>
 
         <i class="fa-solid fa-chevron-down arrow-down" @click="nextSlide"
-        :class="(currentIndex === totalSlides - 1) ? 'transparence-i' : ''"></i>
+            :class="(currentIndex === totalSlides - 1) ? 'transparence-i' : ''"></i>
     </div>
 </template>
 
@@ -137,7 +142,7 @@ export default {
 
 .badge-style-active {
     color: black;
-    font-weight: 600;
+    font-weight: 500;
     box-shadow: 0px 0px 6px rgb(196, 35, 102);
     border: 2px solid rgb(196, 35, 102);
 
