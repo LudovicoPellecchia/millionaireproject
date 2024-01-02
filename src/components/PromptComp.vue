@@ -137,7 +137,7 @@ export default {
                                             </div>
                                             <div class="form-check ">
                                                 <input class="form-check-input" type="radio" id="inlineRadio3"
-                                                    value="Molto Difficile" v-model="quizSettings.difficulty">
+                                                    value="Difficilissimo" v-model="quizSettings.difficulty">
                                                 <label class="form-check-label" for="inlineRadio3">Difficile</label>
                                             </div>
                                         </div>
